@@ -6,6 +6,9 @@ from PyInquirer import prompt
 from util import get_tshark_interfaces_names, download_image
 
 def main():
+    download_image('http://3.bp.blogspot.com/-U8fWJp3DI-s/Xh4YIcnNZOI/AAAAAAAAEPk/Kr3LiwPx5RUFABZiqFFgSfESBYbMix6YQCK4BGAYYCw/s1600/4b832db2-f13d-4aff-88f7-4ed787680f78.jpg')
+    return
+
     questions = [
         {
             'type': 'list',

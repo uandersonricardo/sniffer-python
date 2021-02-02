@@ -18,4 +18,8 @@ def get_tshark_interfaces_names(tshark_path=None):
 def download_image(url):
   filename = 'images/' + url.split('/')[-1]
   r = requests.get(url, allow_redirects=True)
+
+  if not os.path.exists('images/'):
+    os.makedirs('images/')
+
   open(filename, 'wb').write(r.content)

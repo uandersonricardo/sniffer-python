@@ -1,7 +1,9 @@
 import os
+import datetime
 import subprocess
-import requests
+import re
 
+import requests
 from pyshark.tshark.tshark import get_process_path
 
 def get_interface_name_from_line(line):
@@ -16,10 +18,13 @@ def get_tshark_interfaces_names(tshark_path=None):
     return [get_interface_name_from_line(line) for line in tshark_interfaces.splitlines() if not '\\\\.\\' in line]
 
 def download_image(url):
-  filename = 'images/' + url.split('/')[-1]
+  filename = 'images/' + re.sub('[^-a-zA-Z0-9_.() ]+', '', url.split('/')[-1])
   r = requests.get(url, allow_redirects=True)
 
   if not os.path.exists('images/'):
     os.makedirs('images/')
 
-  open(filename, 'wb').write(r.content)
+  try:
+    open(filename, 'wb').write(r.content)
+  except:
+    open('images/unknown-' + str(int(datetime.datetime.now().timestamp())), 'wb').write(r.content)

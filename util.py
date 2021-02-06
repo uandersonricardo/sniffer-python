@@ -7,8 +7,13 @@ import requests
 from pyshark.tshark.tshark import get_process_path
 
 def get_interface_name_from_line(line):
-    name = line.split("(")[1]
-    return name[:-1]
+    name = line.split(". ")[-1]
+
+    if ("(" in name):
+      name = " ".join(name.split(" ")[1:])
+      name = name.replace("(", "").replace(")", "")
+
+    return name
 
 def get_tshark_interfaces_names(tshark_path=None):
     parameters = [get_process_path(tshark_path), "-D"]
